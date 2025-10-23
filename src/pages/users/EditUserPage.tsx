@@ -1,8 +1,11 @@
-import React from 'react'
+
+import UserHeading from '../../components/user/UserHeading'
 
 const EditUserPage = () => {
   return (
-    <div>EditUserPage</div>
+    <div>
+      <UserHeading translationKey="edit_user_heading"/>
+    </div>
   )
 }
 

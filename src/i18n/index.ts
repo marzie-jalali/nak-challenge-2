@@ -12,6 +12,9 @@ i18n.use(initReactI18next).init({
         "Phone": "Phone",
         "Status": "Status",
         "Submit": "Submit",
+        "user_list_heading":"List Item",
+        "add_user_heading":"Create New Item",
+        "edit_user_heading":"Edit Item"
       },
     },
   },

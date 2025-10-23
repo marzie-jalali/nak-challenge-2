@@ -1,8 +1,13 @@
-import React from 'react'
+
+import UserHeading from '../../components/user/UserHeading'
 
 const UserFormPage = () => {
   return (
-    <div>UserFormPage</div>
+    <div>
+      <UserHeading translationKey="add_user_heading"/>
+    
+    </div>
+    
   )
 }
 
