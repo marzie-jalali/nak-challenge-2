@@ -6,11 +6,12 @@ interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
 }
 
-const CustomInput :React.FC<CustomInputProps> = ({ label,required = false, ...props }) => {
+const CustomInput :React.FC<CustomInputProps> = ({ label,required = false,error, ...props }) => {
   return (
     <InputWrapper>
     {label && <TextLabel>{label}{required && <RequiredStar>*</RequiredStar>}</TextLabel>}
-    <StyledInput {...props} />
+    <StyledInput {...props} error={error} />
+    {error && <ErrorMessage>{error}</ErrorMessage>}
   </InputWrapper>
   )
 }
@@ -38,4 +39,10 @@ const StyledInput = styled.input`
 const RequiredStar = styled.span`
   color: #DC362E;
   margin-left: 4px;
+`;
+
+const ErrorMessage = styled.p`
+  color: #DC362E;
+  font-size: 12px;
+  margin-top: 4px;
 `;

@@ -3,23 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../shared/tools/CustomButton";
 import PageWrapper from "../layout/user/PageWrapper";
+import type { UserEntity } from "../../types/user";
 
 
-interface UserEntity {
-  item: string;
-  name: string;
-  userName: string;
-  email: string;
-  phone: string;
-  status: "active" | "not_active" | null;
-}
 interface Props {
   users: UserEntity[];
 }
 
 const UserTable : React.FC<Props>  = ({users}) => {
+ 
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+const handleRowClick = (id: number) => {
+  navigate(`/users/${id}/edit`);
+}
+
   return (
     <PageWrapper>
     <TableContainer>
@@ -42,9 +41,9 @@ const UserTable : React.FC<Props>  = ({users}) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr key={user.item}>
-              <Td>{user.item}</Td>
+          {users.map((user, index) => (
+            <tr key={user.id} onClick={() => handleRowClick(user.id)}>
+              <Td>{index + 1}</Td>
               <Td>{user.name}</Td>
               <Td>{user.userName}</Td>
               <Td>{user.email}</Td>
