@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../shared/tools/CustomButton";
+import CustomBadge from "../shared/tools/CustomBadges";
 import PageWrapper from "../layout/user/PageWrapper";
 import type { UserEntity } from "../../types/user";
 
@@ -48,7 +49,13 @@ const handleRowClick = (id: number) => {
               <Td>{user.userName}</Td>
               <Td>{user.email}</Td>
               <Td>{user.phone}</Td>
-              <Td>{user.status}</Td>
+              <Td>
+                <CustomBadge status={user.status}>
+                  {user.status === 'active' ? t('active') : 
+                   user.status === 'not_active' ? t('inactive') : 
+                   t('unknown')}
+                </CustomBadge>
+              </Td>
             </tr>
           ))}
         </tbody>

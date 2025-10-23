@@ -162,12 +162,10 @@ border-top: 1px solid #E0E0E0;
 const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1 1 200px;
-  min-width: 200px;
   gap: 8px;
+  width:33%;
 
   select {
-    width: 100%; 
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
