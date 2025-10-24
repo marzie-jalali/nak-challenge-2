@@ -28,6 +28,12 @@ i18n.use(initReactI18next).init({
         phone_just_numbers:
           "Phone number must be at least 10 digits and contain only numbers.",
         status_invalid_value: "Invalid status value.",
+        /* Fibonacci */
+        fibonacci_heading: "Fibonacci",
+        enter_a_number: "Enter a number",
+        number_required: "Number is required.",
+        integer: "Number must be an integer.",
+        min_zero: "Number must be greater than 0.",
       },
     },
   },

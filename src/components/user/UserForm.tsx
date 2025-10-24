@@ -10,6 +10,7 @@ import { useUserStore } from "../../store/userStore";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomButton from "../shared/tools/CustomButton";
+import Divider from "../shared/tools/Divider";
 
 const usernameRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/;
 const phoneRegex = /^[0-9]{10,}$/;
@@ -136,7 +137,7 @@ const UserForm = () => {
               error={errors.phone ? t(errors.phone.message || "") : ""}
             />
           </InputWrapper>
-          <Divider />
+          <Divider margin="24px 0" color="#e0e0e0" thickness="1px" />
           <SelectContainer>
             <label>{t("Status")}</label>
             <select {...register("status")}>
@@ -181,11 +182,6 @@ const CustomForm = styled.form`
   flex-direction: column;
 `;
 
-const Divider = styled.div`
-  width: 100%;
-  margin: 24px 0;
-  border-top: 1px solid #e0e0e0;
-`;
 const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
