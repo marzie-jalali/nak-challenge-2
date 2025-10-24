@@ -5,7 +5,7 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
-        "Add New Item": "Add New Item",
+        Add_New_Item: "Add New Item",
         Name: "Name",
         "User Name": "Username",
         Email: "Email",
@@ -30,6 +30,12 @@ i18n.use(initReactI18next).init({
         status_invalid_value: "Invalid status value.",
         /* Fibonacci */
         fibonacci_heading: "Fibonacci",
+        enter_a_number: "Enter a number",
+        number_required: "Number is required.",
+        integer: "Number must be an integer.",
+        min_zero: "Number must be greater than 0.",
+        /* Collatz */
+        collatz_heading: "Collatz Conjecture",
         enter_a_number: "Enter a number",
         number_required: "Number is required.",
         integer: "Number must be an integer.",
