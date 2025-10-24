@@ -29,8 +29,7 @@ const CollatzPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
-    reset,
+    formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
     mode: "onChange",

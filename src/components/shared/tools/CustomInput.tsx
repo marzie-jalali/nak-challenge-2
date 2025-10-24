@@ -20,7 +20,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           {required && <RequiredStar>*</RequiredStar>}
         </TextLabel>
       )}
-      <StyledInput {...props} error={error} />
+      <StyledInput {...props} />
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </InputWrapper>
   );

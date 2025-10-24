@@ -28,7 +28,7 @@ const userSchema = yup.object({
     .matches(phoneRegex, "phone_just_numbers"),
   status: yup
     .string()
-    .oneOf(["active", "not_active", "null"], "status_invalid_value")
+    .oneOf(["active", "not_active", ""], "status_invalid_value")
     .optional()
     .transform((value) => (value === "" ? undefined : value)),
 });
@@ -60,7 +60,7 @@ const UserForm = () => {
       userName: "",
       email: "",
       phone: "",
-      status: null,
+      status: undefined,
     },
     mode: "onChange",
   });
