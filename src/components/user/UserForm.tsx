@@ -1,38 +1,35 @@
-import styled from '@emotion/styled';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import PageWrapper from '../layout/user/PageWrapper'
-import CustomInput from '../shared/tools/CustomInput'
-import type { NewUser } from '../../types/user';
-import { useTranslation } from 'react-i18next';
-import { useUserStore } from '../../store/userStore';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import CustomButton from '../shared/tools/CustomButton';
+import styled from "@emotion/styled";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import PageWrapper from "../layout/user/PageWrapper";
+import CustomInput from "../shared/tools/CustomInput";
+import type { NewUser } from "../../types/user";
+import { useTranslation } from "react-i18next";
+import { useUserStore } from "../../store/userStore";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import CustomButton from "../shared/tools/CustomButton";
 
 const usernameRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/;
 const phoneRegex = /^[0-9]{10,}$/;
 
 const userSchema = yup.object({
-  name: yup.string().required("name_required"), 
+  name: yup.string().required("name_required"),
   userName: yup
     .string()
     .required("username_required")
-    .matches(usernameRegex, "username_invalid_format"), 
-  email: yup
-    .string()
-    .required("email_required")
-    .email("email_invalid_format"), 
+    .matches(usernameRegex, "username_invalid_format"),
+  email: yup.string().required("email_required").email("email_invalid_format"),
   phone: yup
     .string()
     .required("phone_required")
-    .matches(phoneRegex, "phone_just_numbers"), 
+    .matches(phoneRegex, "phone_just_numbers"),
   status: yup
     .string()
-    .oneOf(['active', 'not_active', ''], "status_invalid_value")
+    .oneOf(["active", "not_active", ""], "status_invalid_value")
     .optional()
-    .transform((value) => value === '' ? undefined : value), 
+    .transform((value) => (value === "" ? undefined : value)),
 });
 
 type FormData = yup.InferType<typeof userSchema>;
@@ -45,7 +42,9 @@ const UserForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
-  const existingUser = isEditMode ? users.find(user => user.id === parseInt(id!)) : null;
+  const existingUser = isEditMode
+    ? users.find((user) => user.id === parseInt(id!))
+    : null;
 
   const {
     register,
@@ -54,19 +53,21 @@ const UserForm = () => {
     reset,
     watch,
   } = useForm<FormData>({
-    resolver: yupResolver(userSchema) as any, // eslint-disable-line @typescript-eslint/no-explicit-any 
+    resolver: yupResolver(userSchema) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     defaultValues: {
-      name: '',
-      userName: '',
-      email: '',
-      phone: '',
+      name: "",
+      userName: "",
+      email: "",
+      phone: "",
       status: undefined,
     },
-    mode: 'onChange', 
+    mode: "onChange",
   });
 
-  const watchedFields = watch(['name', 'userName', 'email', 'phone']);
-  const allRequiredFieldsFilled = watchedFields.every(field => field && field.trim() !== ''); 
+  const watchedFields = watch(["name", "userName", "email", "phone"]);
+  const allRequiredFieldsFilled = watchedFields.every(
+    (field) => field && field.trim() !== ""
+  );
   const isSubmitDisabled = !isEditMode && !allRequiredFieldsFilled;
 
   useEffect(() => {
@@ -80,43 +81,70 @@ const UserForm = () => {
       });
     }
   }, [isEditMode, existingUser, reset]);
-  
+
   const onSubmit = (data: FormData) => {
     const userData: NewUser = {
       name: data.name,
       userName: data.userName,
       email: data.email,
       phone: data.phone,
-      status: data.status === undefined ? null : data.status as 'active' | 'not_active'
+      status:
+        data.status === undefined
+          ? null
+          : (data.status as "active" | "not_active"),
     };
-    
+
     if (isEditMode && existingUser) {
       updateUser(existingUser.id, userData);
     } else {
       addUser(userData);
     }
-    navigate('/users');
-  }
+    navigate("/users");
+  };
 
   return (
     <PageWrapper>
-        <CustomForm onSubmit={handleSubmit(onSubmit)}>
+      <CustomForm onSubmit={handleSubmit(onSubmit)}>
         <FormContainer>
           <InputWrapper>
-            <CustomInput label={t("Name")}  type="text"   {...register('name')} required error={errors.name ? t(errors.name.message || "") : ""}/>
-            <CustomInput label={t("User Name")} type="text"   {...register('userName')} required error={errors.userName ? t(errors.userName.message || "") : ""}/>
-            <CustomInput label={t("Email")}  type="email"   {...register('email')} required  error={errors.email ? t(errors.email.message || "") : ""}/>
-            <CustomInput label={t("Phone")}  type="tel"   {...register('phone')} required error={errors.phone ? t(errors.phone.message || "") : ""} />
-            </InputWrapper>
-            <Divider/>
-        <SelectContainer>
-          <label>{t("Status")}</label>
-          <select {...register('status')}>
-            <option value="active">{t("active")}</option>
-            <option value="not_active">{t("inactive")}</option>
-            <option value="">{t("unknown")}</option>
-          </select>
-        </SelectContainer>
+            <CustomInput
+              label={t("Name")}
+              type="text"
+              {...register("name")}
+              required
+              error={errors.name ? t(errors.name.message || "") : ""}
+            />
+            <CustomInput
+              label={t("User Name")}
+              type="text"
+              {...register("userName")}
+              required
+              error={errors.userName ? t(errors.userName.message || "") : ""}
+            />
+            <CustomInput
+              label={t("Email")}
+              type="email"
+              {...register("email")}
+              required
+              error={errors.email ? t(errors.email.message || "") : ""}
+            />
+            <CustomInput
+              label={t("Phone")}
+              type="tel"
+              {...register("phone")}
+              required
+              error={errors.phone ? t(errors.phone.message || "") : ""}
+            />
+          </InputWrapper>
+          <Divider />
+          <SelectContainer>
+            <label>{t("Status")}</label>
+            <select {...register("status")}>
+              <option value="active">{t("active")}</option>
+              <option value="not_active">{t("inactive")}</option>
+              <option value="">{t("unknown")}</option>
+            </select>
+          </SelectContainer>
         </FormContainer>
         <FormContainer>
           <ButtonWrapper>
@@ -124,20 +152,20 @@ const UserForm = () => {
               {t("Submit")}
             </CustomButton>
           </ButtonWrapper>
-          </FormContainer>
-        </CustomForm>
+        </FormContainer>
+      </CustomForm>
     </PageWrapper>
-  )
-}
+  );
+};
 
-export default UserForm
+export default UserForm;
 
 const FormContainer = styled.div`
   width: 100%;
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.04);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-top: 48px;
 `;
 
@@ -145,25 +173,24 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap:24px
+  gap: 24px;
 `;
 
 const CustomForm = styled.form`
   display: flex;
   flex-direction: column;
-
 `;
 
 const Divider = styled.div`
-width:100%;
-margin:24px 0;
-border-top: 1px solid #E0E0E0;
-`
+  width: 100%;
+  margin: 24px 0;
+  border-top: 1px solid #e0e0e0;
+`;
 const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width:33%;
+  width: 33%;
 
   select {
     padding: 8px 12px;

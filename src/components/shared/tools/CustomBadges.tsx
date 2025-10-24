@@ -1,22 +1,18 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import styled from "@emotion/styled";
 
 interface BadgeProps {
-  status: 'active' | 'not_active' | null;
+  status: "active" | "not_active" | null;
   children: React.ReactNode;
 }
 
 const CustomBadge: React.FC<BadgeProps> = ({ status, children }) => {
-  return (
-    <BadgeContainer status={status}>
-      {children}
-    </BadgeContainer>
-  );
+  return <BadgeContainer status={status}>{children}</BadgeContainer>;
 };
 
 export default CustomBadge;
 
-const BadgeContainer = styled.span<{ status: 'active' | 'not_active' | null }>`
+const BadgeContainer = styled.span<{ status: "active" | "not_active" | null }>`
   display: inline-flex;
   align-items: center;
   padding: 4px 8px;
@@ -24,15 +20,15 @@ const BadgeContainer = styled.span<{ status: 'active' | 'not_active' | null }>`
   font-size: 12px;
   font-weight: 500;
   text-transform: capitalize;
-  
+
   ${({ status }) => {
     switch (status) {
-      case 'active':
+      case "active":
         return `
           background-color: #EBFFF1;
           color: #0FBD66;
         `;
-      case 'not_active':
+      case "not_active":
         return `
           background-color: #FCEEEE;
           color: #DC362E;

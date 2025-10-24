@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const CollatzPage = () => {
-  return (
-    <div>CollatzPage</div>
-  )
-}
+  return <div>CollatzPage</div>;
+};
 
-export default CollatzPage
+export default CollatzPage;

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -6,17 +6,27 @@ interface CustomInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
 }
 
-const CustomInput :React.FC<CustomInputProps> = ({ label,required = false,error, ...props }) => {
+const CustomInput: React.FC<CustomInputProps> = ({
+  label,
+  required = false,
+  error,
+  ...props
+}) => {
   return (
     <InputWrapper>
-    {label && <TextLabel>{label}{required && <RequiredStar>*</RequiredStar>}</TextLabel>}
-    <StyledInput {...props} error={error} />
-    {error && <ErrorMessage>{error}</ErrorMessage>}
-  </InputWrapper>
-  )
-}
+      {label && (
+        <TextLabel>
+          {label}
+          {required && <RequiredStar>*</RequiredStar>}
+        </TextLabel>
+      )}
+      <StyledInput {...props} error={error} />
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+    </InputWrapper>
+  );
+};
 
-export default CustomInput
+export default CustomInput;
 
 const InputWrapper = styled.div`
   display: flex;
@@ -31,18 +41,18 @@ const TextLabel = styled.label`
 
 const StyledInput = styled.input`
   padding: 0.5rem;
-  border: 1px solid #ABABAB;
+  border: 1px solid #ababab;
   border-radius: 0.25rem;
   outline: none;
 `;
 
 const RequiredStar = styled.span`
-  color: #DC362E;
+  color: #dc362e;
   margin-left: 4px;
 `;
 
 const ErrorMessage = styled.p`
-  color: #DC362E;
+  color: #dc362e;
   font-size: 12px;
   margin-top: 4px;
 `;
