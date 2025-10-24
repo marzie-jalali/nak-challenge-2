@@ -14,11 +14,10 @@ const schema = yup
   .object({
     number: yup
       .number()
-      .typeError("validation.number_is_required")
-      .required("validation.number_is_required")
-      .integer("validation.must_be_integer")
-      .positive("validation.must_be_positive")
-      .max(1_000_000_000, "validation.too_large"),
+      .typeError("validation.number_required")
+      .required("validation.number_required")
+      .integer("validation.integer")
+      .min(1, "validation.min_zero"),
   })
   .required();
 
@@ -58,7 +57,7 @@ const CollatzPage = () => {
           <ErrorMessage>{t(errors.number.message || "")}</ErrorMessage>
         )}
         <LayerContainer>
-          <CustomButton type="submit">{t("submit")}</CustomButton>
+          <CustomButton type="submit">{t("calculate")}</CustomButton>
         </LayerContainer>
         <Divider margin="40px 0" color="#CCCCCC" thickness="1px" />
         <LayerContainer>

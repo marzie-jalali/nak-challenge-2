@@ -6,7 +6,6 @@ import { useFibStore } from "../store/fibonacciStore";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import CustomButton from "../components/shared/tools/CustomButton";
-import ButtonLayout from "../components/layout/ButtonLayout";
 import Divider from "../components/shared/tools/Divider";
 import { getFibonacciNeighbors } from "../utils/fibonacci";
 
@@ -16,10 +15,10 @@ const schema = yup
   .object({
     number: yup
       .number()
-      .typeError("number_required")
-      .required("number_required")
-      .integer("integer")
-      .min(0, "min_zero"),
+      .typeError("validation.number_required")
+      .required("validation.number_required")
+      .integer("validation.integer")
+      .min(0, "validation.min_zero"),
   })
   .required();
 
@@ -57,48 +56,53 @@ const FibonacciPage = () => {
   };
 
   return (
-    <LayoutWrapper>
+    <>
       <HeadingContainer>
         <h2>{t("fibonacci_heading")}</h2>
       </HeadingContainer>
-      <FormLayout>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Formcontainer>
+      <FibonacciContainer>
+        <FormContainer onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {" "}
             <Label>{t("enter_a_number")}</Label>
             <Input type="number" min="0" {...register("number")} />
             {errors.number && (
               <ErrorMessage>{t(errors.number.message || "")}</ErrorMessage>
             )}
-            <ButtonLayout>
-              <CustomButton type="submit">{t("submit")}</CustomButton>
-            </ButtonLayout>
-          </Formcontainer>
-        </form>
-        <Divider margin="40px 0" color="#CCCCCC" thickness="1px" />
-        <InputResultLayout>
-          <ResultInput>
-            <Value>{result?.prev || "-"}</Value>
-          </ResultInput>
-          <ResultInput>
-            <Value>{inputNumber !== null ? inputNumber : "-"}</Value>
-          </ResultInput>
-          <ResultInput>
-            <Value>{result?.next || "-"}</Value>
-          </ResultInput>
-        </InputResultLayout>
-      </FormLayout>
-    </LayoutWrapper>
+          </div>
+
+          <LayerContainer>
+            <CustomButton type="submit">{t("submit")}</CustomButton>
+          </LayerContainer>
+          <Divider margin="40px 0" color="#CCCCCC" thickness="1px" />
+          <LayerContainer>
+            <ResultInput>
+              <Value>{result?.prev || "-"}</Value>
+            </ResultInput>
+            <ResultInput>
+              <Value>{inputNumber !== null ? inputNumber : "-"}</Value>
+            </ResultInput>
+            <ResultInput>
+              <Value>{result?.next || "-"}</Value>
+            </ResultInput>
+          </LayerContainer>
+        </FormContainer>
+      </FibonacciContainer>
+    </>
   );
 };
 
 export default FibonacciPage;
 
-const LayoutWrapper = styled.div`
+const FibonacciContainer = styled.div`
   width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `;
 
 const HeadingContainer = styled.div`
@@ -106,8 +110,27 @@ const HeadingContainer = styled.div`
   margin: 24px 0;
 `;
 
-const FormLayout = styled.div`
+const FormContainer = styled.form`
   max-width: 696px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 16px;
+`;
+
+const LayerContainer = styled.div`
+  width: 100%;
+  padding: 20px 16px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
 `;
 
 const Label = styled.div`
@@ -117,12 +140,14 @@ const Label = styled.div`
 `;
 
 const Input = styled.input`
+  width: 100%;
   padding: 20px 16px;
   border-radius: 8px;
   border: 1px solid #cccccc;
   flex: 1;
   font-size: 48px;
   text-align: center;
+  margin-top: 4px;
 
   /* Hide the number input spinners */
   &::-webkit-outer-spin-button,
@@ -137,25 +162,8 @@ const Input = styled.input`
   }
 `;
 
-const Formcontainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const InputResultLayout = styled.div`
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.04);
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px;
-`;
-
 const ResultInput = styled.div`
+  width: 100%;
   padding: 40px 16px;
   border-radius: 8px;
   background-color: #cccccc;

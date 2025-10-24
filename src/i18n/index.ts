@@ -31,15 +31,15 @@ i18n.use(initReactI18next).init({
         /* Fibonacci */
         fibonacci_heading: "Fibonacci",
         enter_a_number: "Enter a number",
-        number_required: "Number is required.",
-        integer: "Number must be an integer.",
-        min_zero: "Number must be greater than 0.",
         /* Collatz */
         collatz_heading: "Collatz Conjecture",
-        enter_a_number: "Enter a number",
-        number_required: "Number is required.",
-        integer: "Number must be an integer.",
-        min_zero: "Number must be greater than 0.",
+        calculate: "Calculate Cycles",
+        /* validation */
+        validation: {
+          number_required: "Number is required.",
+          integer: "Number must be an integer.",
+          min_zero: "Number must be greater than 0.",
+        },
       },
     },
   },
