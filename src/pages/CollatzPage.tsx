@@ -82,8 +82,7 @@ export default CollatzPage;
 
 const CollatzContainer = styled.div`
   width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
+  margin: 48px auto;
   box-sizing: border-box;
   min-height: 100vh;
   display: flex;
@@ -101,9 +100,12 @@ const FormContainer = styled.form`
   margin: 0 auto;
   gap: 16px;
 `;
-const HeadingContainer = styled.div`
+const HeadingContainer = styled.p`
   text-align: center;
-  margin: 24px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #242424;
+  margin-bottom: 24px;
 `;
 
 const Input = styled.input`

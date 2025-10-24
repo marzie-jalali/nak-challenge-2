@@ -99,7 +99,7 @@ const FibonacciContainer = styled.div`
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
-  min-height: 100vh;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;

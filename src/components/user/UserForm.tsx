@@ -28,7 +28,7 @@ const userSchema = yup.object({
     .matches(phoneRegex, "phone_just_numbers"),
   status: yup
     .string()
-    .oneOf(["active", "not_active", ""], "status_invalid_value")
+    .oneOf(["active", "not_active", "null"], "status_invalid_value")
     .optional()
     .transform((value) => (value === "" ? undefined : value)),
 });
@@ -60,7 +60,7 @@ const UserForm = () => {
       userName: "",
       email: "",
       phone: "",
-      status: undefined,
+      status: null,
     },
     mode: "onChange",
   });
@@ -168,6 +168,7 @@ const FormContainer = styled.div`
   box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
   margin-top: 48px;
+  display: flex;
 `;
 
 const InputWrapper = styled.div`
