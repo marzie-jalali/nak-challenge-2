@@ -54,38 +54,40 @@ const UserTable: React.FC<Props> = ({ users }) => {
           </CustomButton>
         </TopRow>
 
-        <Table>
-          <thead>
-            <tr>
-              <Th>{t("Item")}</Th>
-              <Th>{t("Name")}</Th>
-              <Th>{t("User Name")}</Th>
-              <Th>{t("Email")}</Th>
-              <Th>{t("Phone")}</Th>
-              <Th>{t("Status")}</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers.map((user, index) => (
-              <tr key={user.id} onClick={() => handleRowClick(user.id)}>
-                <Td>{startIndex + index + 1}</Td>
-                <Td>{user.name}</Td>
-                <Td>{user.userName}</Td>
-                <Td>{user.email}</Td>
-                <Td>{user.phone}</Td>
-                <Td>
-                  <CustomBadge status={user.status}>
-                    {user.status === "active"
-                      ? t("active")
-                      : user.status === "not_active"
-                      ? t("inactive")
-                      : t("unknown")}
-                  </CustomBadge>
-                </Td>
+        <TableWrapper>
+          <StyledTable>
+            <thead>
+              <tr>
+                <Th>{t("Item")}</Th>
+                <Th>{t("Name")}</Th>
+                <Th>{t("User Name")}</Th>
+                <Th>{t("Email")}</Th>
+                <Th>{t("Phone")}</Th>
+                <Th>{t("Status")}</Th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {currentUsers.map((user, index) => (
+                <tr key={user.id} onClick={() => handleRowClick(user.id)}>
+                  <Td>{startIndex + index + 1}</Td>
+                  <Td>{user.name}</Td>
+                  <Td>{user.userName}</Td>
+                  <Td>{user.email}</Td>
+                  <Td>{user.phone}</Td>
+                  <Td>
+                    <CustomBadge status={user.status}>
+                      {user.status === "active"
+                        ? t("active")
+                        : user.status === "not_active"
+                        ? t("inactive")
+                        : t("unknown")}
+                    </CustomBadge>
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </StyledTable>
+        </TableWrapper>
 
         {totalPages > 1 && (
           <PaginationContainer>
@@ -143,6 +145,13 @@ const TopRow = styled.div`
   padding: 24px;
   background: #ffffff;
   border-bottom: 1px solid #e6e6e6;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const HeaderTitle = styled.h2`
@@ -152,9 +161,20 @@ const HeaderTitle = styled.h2`
   margin: 0;
 `;
 
-const Table = styled.table`
+const TableWrapper = styled.div`
+  width: 100%;
+  overflow-x: auto;
+`;
+
+const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  min-width: 700px;
+
+  th,
+  td {
+    white-space: nowrap;
+  }
 `;
 
 const Th = styled.th`
@@ -178,6 +198,8 @@ const Td = styled.td`
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   align-items: center;
   padding: 16px 24px;
   background: #ffffff;

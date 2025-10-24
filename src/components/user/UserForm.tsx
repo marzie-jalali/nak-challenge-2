@@ -105,9 +105,9 @@ const UserForm = () => {
 
   return (
     <PageWrapper>
-      <CustomForm onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer>
-          <InputWrapper>
+          <GridInputs>
             <CustomInput
               label={t("Name")}
               type="text"
@@ -136,7 +136,7 @@ const UserForm = () => {
               required
               error={errors.phone ? t(errors.phone.message || "") : ""}
             />
-          </InputWrapper>
+          </GridInputs>
           <Divider margin="24px 0" color="#e0e0e0" thickness="1px" />
           <SelectContainer>
             <label>{t("Status")}</label>
@@ -147,14 +147,13 @@ const UserForm = () => {
             </select>
           </SelectContainer>
         </FormContainer>
-        <FormContainer>
-          <ButtonWrapper>
-            <CustomButton type="submit" disabled={isSubmitDisabled}>
-              {t("Submit")}
-            </CustomButton>
-          </ButtonWrapper>
-        </FormContainer>
-      </CustomForm>
+
+        <LayerContainer>
+          <CustomButton type="submit" disabled={isSubmitDisabled}>
+            {t("Submit")}
+          </CustomButton>
+        </LayerContainer>
+      </form>
     </PageWrapper>
   );
 };
@@ -168,38 +167,42 @@ const FormContainer = styled.div`
   box-shadow: 0px 4px 22px rgba(0, 0, 0, 0.04);
   background-color: #ffffff;
   margin-top: 48px;
-  display: flex;
+  box-sizing: border-box;
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+const GridInputs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
-`;
-
-const CustomForm = styled.form`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 `;
 
 const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 33%;
+  max-width: 33%;
+  min-width: 260px;
 
   select {
+    width: 100%;
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
     background-color: #fff;
+    display: grid;
   }
 `;
 
-const ButtonWrapper = styled.div`
+const LayerContainer = styled.div`
+  padding: 20px 16px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
 `;
