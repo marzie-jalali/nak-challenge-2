@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useFibStore } from "../store/fibonacciStore";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../components/shared/tools/CustomButton";
 import Divider from "../components/shared/tools/Divider";
 import { getFibonacciNeighbors } from "../utils/fibonacci";
@@ -29,30 +28,41 @@ const FibonacciPage = () => {
   );
   const [inputNumber, setInputNumber] = useState<number | null>(null);
 
-  const addQuery = useFibStore((state) => state.addQuery);
-
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: { number: 0 },
   });
+  const watchedFields = watch("number") as number;
+
+  useEffect(() => {
+    if (!watchedFields && (result !== null || inputNumber !== null)) {
+      setResult(null);
+      setInputNumber(null);
+    }
+  }, [watchedFields]);
 
   const onSubmit = (data: FormValues) => {
-    console.log("Form submitted with data:", data);
     try {
       const num = Math.floor(Number(data.number));
-      console.log("Calculating Fibonacci neighbors for:", num);
       const res = getFibonacciNeighbors(num);
-      console.log("Result:", res);
       setResult(res);
       setInputNumber(num);
-      addQuery(num);
     } catch (error) {
       console.error("Error calculating Fibonacci:", error);
     }
+    // if (
+    //   typeof watchedFields !== "number" &&
+    //   watchedFields === 0 &&
+    //   (result !== null || inputNumber !== null)
+    // ) {
+    //   setResult(null);
+    //   setInputNumber(null);
+    // }
   };
 
   return (

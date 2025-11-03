@@ -11,7 +11,7 @@ interface Props {
   users: UserEntity[];
 }
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 2;
 
 const UserTable: React.FC<Props> = ({ users }) => {
   const navigate = useNavigate();
