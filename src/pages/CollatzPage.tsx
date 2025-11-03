@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useCollatzStore } from "../store/collatzStore";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { computeCollatz } from "../utils/collatz";
+import type { CollatzResult } from "../utils/collatz";
 import CustomButton from "../components/shared/tools/CustomButton";
 import Divider from "../components/shared/tools/Divider";
+import { useEffect, useState } from "react";
 
 type FormValues = { number: number };
 
@@ -23,18 +24,27 @@ const schema = yup
 
 const CollatzPage = () => {
   const { t } = useTranslation();
-  const setLastResult = useCollatzStore((s) => s.setLastResult);
-  const lastResult = useCollatzStore((s) => s.lastResult);
+  const [lastResult, setLastResult] = useState<CollatzResult | null>(null);
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: { number: 0 },
   });
+
+  const watchedFields = watch("number") as number;
+  const numberValue = Number(watchedFields);
+
+  useEffect(() => {
+    if (!numberValue && lastResult !== null) {
+      setLastResult(null);
+    }
+  }, [numberValue]);
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -45,6 +55,7 @@ const CollatzPage = () => {
       setLastResult(null);
     }
   };
+
   return (
     <CollatzContainer>
       <HeadingContainer>

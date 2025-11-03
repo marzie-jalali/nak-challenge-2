@@ -55,14 +55,6 @@ const FibonacciPage = () => {
     } catch (error) {
       console.error("Error calculating Fibonacci:", error);
     }
-    // if (
-    //   typeof watchedFields !== "number" &&
-    //   watchedFields === 0 &&
-    //   (result !== null || inputNumber !== null)
-    // ) {
-    //   setResult(null);
-    //   setInputNumber(null);
-    // }
   };
 
   return (
