@@ -1,10 +1,11 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "@emotion/styled";
 import UserListPage from "../pages/users/UserListPage";
 import UserFormPage from "../pages/users/UserFormPage";
 import FibonacciPage from "../pages/FibonacciPage";
 import CollatzPage from "../pages/CollatzPage";
 import Navbar from "../components/layout/Navbar";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const AppRoutes = () => {
   return (
@@ -18,7 +19,7 @@ const AppRoutes = () => {
             <Route path="/users/:id/edit" element={<UserFormPage />} />
             <Route path="/fibonacci" element={<FibonacciPage />} />
             <Route path="/collatz" element={<CollatzPage />} />
-            <Route path="*" element={<Navigate to="/users" />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </MainContent>
       </AppLayout>
